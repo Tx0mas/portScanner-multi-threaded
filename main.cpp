@@ -7,10 +7,10 @@
 #include <unistd.h>
 #include <thread>
 #include <arpa/inet.h>
+#include <mutex> 
 
 
 
-#include <mutex> //lo usamos para que no escriban al mismo tiempo en el mismo lugar de memoria (vectorConnections)
 std::mutex mtx;
 
 
@@ -27,6 +27,7 @@ void checkPort(std::string ip, int port,std::vector<std::string> &vectorConnecti
 
         if (connection < 0)
         {
+            //para que no se escriban entre hilos arriba de vectorConnections
             std::lock_guard<std::mutex> lock(mtx);
             vectorConnections.push_back(std::to_string(port)+ ":"+"NO");
         }
@@ -37,6 +38,7 @@ void checkPort(std::string ip, int port,std::vector<std::string> &vectorConnecti
         }
         close(ourSocket);
 }
+
 
 
 int main()

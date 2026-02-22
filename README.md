@@ -13,6 +13,6 @@ que se utilizo como testeo del scanner.
 Para buildear se requiere gcc y se puede simplemente compilar con g++.
 
 ```
-g++ main.cpp -o main
-g++ server.cpp -o server
+g++ -std=c++17 main.cpp -o main
+g++ -std=c++17 server.cpp -o server
 ```
